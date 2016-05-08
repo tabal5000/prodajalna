@@ -169,55 +169,65 @@
 			</KontaktiPodjetja>
 		</PodatkiPodjetja>
 		<!-- naročnik -->
+		<% var name = customerInfo[0].FirstName + " " + customerInfo[0].LastName;
+ 		var CompanyName = customerInfo[0].Company;
+ 		var address = customerInfo[0].Address;
+ 		var email = customerInfo[0].Email;
+ 		var city = customerInfo[0].City;
+ 		var country = customerInfo[0].Country;
+ 		var postalCode = customerInfo[0].PostalCode;
+ 		var phone = customerInfo[0].Phone;
+ 		var fax = customerInfo[0].Fax;
+ 		%>
 		<PodatkiPodjetja>
 			<NazivNaslovPodjetja>
 				<VrstaPartnerja>BY</VrstaPartnerja>
 				<NazivPartnerja>
-					<NazivPartnerja1>Univerza v Ljubljani, </NazivPartnerja1>
-					<NazivPartnerja2>Fakulteta za računalništvo in informatiko</NazivPartnerja2>
-					<NazivPartnerja3>Laboratorij za </NazivPartnerja3>
-					<NazivPartnerja4>podatkovne tehnologije</NazivPartnerja4>
+					<NazivPartnerja1><%= name %></NazivPartnerja1>
+					<NazivPartnerja2><%= CompanyName %></NazivPartnerja2>
+					<!-- <NazivPartnerja3>Laboratorij za </NazivPartnerja3> -->
+					<!--<NazivPartnerja4>podatkovne tehnologije</NazivPartnerja4> -->
 				</NazivPartnerja>
 				<Ulica>
-					<Ulica1>Večna pot </Ulica1>
-					<Ulica2>113</Ulica2>
-					<Ulica3>nadstropje 2, kabinet R2.49</Ulica3>
+					<Ulica1> <%= address %> </Ulica1>
+					<!-- <Ulica2>113</Ulica2> -->
+					<!-- <Ulica3>nadstropje 2, kabinet R2.49</Ulica3> -->
 				</Ulica>
-				<Kraj>Ljubljana</Kraj>
-				<NazivDrzave>Slovenija</NazivDrzave>
-				<PostnaStevilka>1000</PostnaStevilka>
-				<KodaDrzave>SI</KodaDrzave>
+				<Kraj><%= city %></Kraj>
+				<NazivDrzave><%= country %></NazivDrzave>
+				<PostnaStevilka><%= postalCode %></PostnaStevilka>
+				<KodaDrzave></KodaDrzave>
 			</NazivNaslovPodjetja>
 			<FinancniPodatkiPodjetja>
 				<BancniRacun>
-					<StevilkaBancnegaRacuna>SI56020120090111333</StevilkaBancnegaRacuna>
-					<NazivBanke1>Moja banka d.d.</NazivBanke1>
-					<NazivBanke2>Podružnica center</NazivBanke2>
-					<BIC>LJBASI2XXXX</BIC>
+					<StevilkaBancnegaRacuna></StevilkaBancnegaRacuna>
+					<NazivBanke1></NazivBanke1>
+					<NazivBanke2></NazivBanke2>
+					<BIC></BIC>
 				</BancniRacun>
 			</FinancniPodatkiPodjetja>
 			<ReferencniPodatkiPodjetja>
-				<VrstaPodatkaPodjetja>VA</VrstaPodatkaPodjetja>
-				<PodatekPodjetja>SI67909027</PodatekPodjetja>
+				<VrstaPodatkaPodjetja></VrstaPodatkaPodjetja>
+				<PodatekPodjetja></PodatekPodjetja>
 			</ReferencniPodatkiPodjetja>
 			<ReferencniPodatkiPodjetja>
-				<VrstaPodatkaPodjetja>GN</VrstaPodatkaPodjetja>
-				<PodatekPodjetja>1627023</PodatekPodjetja>
+				<VrstaPodatkaPodjetja></VrstaPodatkaPodjetja>
+				<PodatekPodjetja></PodatekPodjetja>
 			</ReferencniPodatkiPodjetja>
 			<ReferencniPodatkiPodjetja>
-				<VrstaPodatkaPodjetja>IT</VrstaPodatkaPodjetja>
-				<PodatekPodjetja>444-55</PodatekPodjetja>
+				<VrstaPodatkaPodjetja></VrstaPodatkaPodjetja>
+				<PodatekPodjetja></PodatekPodjetja>
 			</ReferencniPodatkiPodjetja>
 			<KontaktiPodjetja>
 				<KontaktnaOseba>
-					<ImeOsebe>Dejan Lavbič</ImeOsebe>
+					<ImeOsebe> <%= name  %> (<%= email %>)</ImeOsebe>
 				</KontaktnaOseba>
 				<Komunikacije>
-					<StevilkaKomunikacije>38614798000</StevilkaKomunikacije>
+					<StevilkaKomunikacije><%= phone %></StevilkaKomunikacije>
 					<VrstaKomunikacije>TE</VrstaKomunikacije>
 				</Komunikacije>
 				<Komunikacije>
-					<StevilkaKomunikacije>38612419350</StevilkaKomunikacije>
+					<StevilkaKomunikacije><%= fax %></StevilkaKomunikacije>
 					<VrstaKomunikacije>FX</VrstaKomunikacije>
 				</Komunikacije>
 			</KontaktiPodjetja>

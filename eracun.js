@@ -151,22 +151,34 @@ streznik.post('/izpisiRacunBaza', function(zahteva, odgovor) {
   odgovor.end();
 })
 
+var izbranaStranka = function(customerid, callback) {
+  pb.all("SELECT * FROM Customer WHERE Customer.CustomerId = "+customerid,
+    function(napaka, vrstice) {
+      callback(napaka, vrstice);
+    }
+  );
+}
+
 // Izpis računa v HTML predstavitvi ali izvorni XML obliki
 streznik.get('/izpisiRacun/:oblika', function(zahteva, odgovor) {
   pesmiIzKosarice(zahteva, function(pesmi) {
-    if (!pesmi) {
-      odgovor.sendStatus(500);
-    } else if (pesmi.length == 0) {
-      odgovor.send("<p>V košarici nimate nobene pesmi, \
-        zato računa ni mogoče pripraviti!</p>");
-    } else {
-      odgovor.setHeader('content-type', 'text/xml');
-      odgovor.render('eslog', {
-        vizualiziraj: zahteva.params.oblika == 'html' ? true : false,
-        postavkeRacuna: pesmi
-      })  
-    }
-  })
+    izbranaStranka(zahteva.session.Username, function(napaka, stranka) {
+      if (!pesmi) {
+        odgovor.sendStatus(500);
+      } else if (pesmi.length == 0) {
+        odgovor.send("<p>V košarici nimate nobene pesmi, \
+          zato računa ni mogoče pripraviti!</p>");
+      } else {
+        console.log(stranka);
+        odgovor.setHeader('content-type', 'text/xml');
+        odgovor.render('eslog', {
+          vizualiziraj: zahteva.params.oblika == 'html' ? true : false,
+          postavkeRacuna: pesmi,
+          customerInfo: stranka //array podatkov stranke
+        });  
+      }
+    });
+  });
 })
 
 // Privzeto izpiši račun v HTML obliki
@@ -233,6 +245,7 @@ streznik.post('/stranka', function(zahteva, odgovor) {
   var form = new formidable.IncomingForm();
   
   form.parse(zahteva, function (napaka1, polja, datoteke) {
+    zahteva.session.Username = polja.seznamStrank; // pridobi Username stranke, potrebno za izpis podatkov v računu HTML/XML
     odgovor.redirect('/')
   });
 })
