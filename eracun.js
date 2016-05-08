@@ -270,11 +270,7 @@ streznik.post('/stranka', function(zahteva, odgovor) {
   var form = new formidable.IncomingForm();
   
   form.parse(zahteva, function (napaka1, polja, datoteke) {
-<<<<<<< HEAD
-    zahteva.session.Username = polja.seznamStrank;
-=======
     zahteva.session.Username = polja.seznamStrank; // pridobi Username stranke, potrebno za izpis podatkov v računu HTML/XML
->>>>>>> prikaz-racuna-trenutni
     odgovor.redirect('/')
   });
 })
