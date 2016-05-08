@@ -211,10 +211,13 @@ streznik.post('/prijava', function(zahteva, odgovor) {
       //TODO: add fields and finalize
       //stmt.run("", "", "", "", "", "", "", "", "", "", "", 3); 
       //stmt.finalize();
+      stmt.run(polja.FirstName,polja.LastName,polja.Company,polja.Address,polja.City,polja.State,polja.Country,polja.PostalCode,polja.Phone,polja.Fax,polja.Email,3);
+      stmt.finalize();
     } catch (err) {
       napaka2 = true;
     }
-  
+    sporociloReg = (napaka1 || napaka2) ? "Prišlo je do napake pri registraciji nove stranke. Prosim preverite vnešene podatke in poskusite znova." : "Stranka je bila uspešno registrirana.";
+    odgovor.redirect("/prijava");
     odgovor.end();
   });
 })
@@ -223,7 +226,12 @@ streznik.post('/prijava', function(zahteva, odgovor) {
 streznik.get('/prijava', function(zahteva, odgovor) {
   vrniStranke(function(napaka1, stranke) {
       vrniRacune(function(napaka2, racuni) {
-        odgovor.render('prijava', {sporocilo: "", seznamStrank: stranke, seznamRacunov: racuni});  
+        odgovor.render('prijava', {
+          sporocilo: sporociloReg,
+          seznamStrank: stranke, 
+          seznamRacunov: racuni
+          });
+        sporociloReg = null;
       }) 
     });
 })
@@ -247,3 +255,5 @@ streznik.post('/odjava', function(zahteva, odgovor) {
 streznik.listen(process.env.PORT, function() {
   console.log("Strežnik pognan!");
 })
+
+var sporociloReg = null;
